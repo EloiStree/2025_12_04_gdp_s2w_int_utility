@@ -54,15 +54,6 @@ static func gamepad18_to_four_float(value: int) -> Array:
 	return [left_horizontal, left_vertical, right_horizontal, right_vertical]
 
 
-static func is_integer_bit_right_to_left_true_using_binary_tag(value: int, index: int) -> bool:
-	# 01100101010100111111000100000000
-	var in_binary_tag: bool = (BINARY_TAG & (1 << index)) != 0
-	var in_value: bool = (value & (1 << index)) != 0
-	
-	if in_binary_tag:
-		return !in_value
-	return in_value
-
 
 static func is_integer_bit_right_to_left_true(value: int, index: int) -> bool:
 	# Don't forget to remove the tag (like 1700000000)
@@ -124,7 +115,7 @@ static func gamepad_resource_to_1700000000_integer(gamepad: S2W_Data_Gamepad1817
 			result |= (1 << 13)
 		if gamepad.menu_right:
 			result |= (1 << 14)
-		if gamepad.kill_switch_is_connected:
+		if gamepad.kill_switch_or_is_connected:
 			result |= (1 << 15)
 		
 
@@ -149,7 +140,7 @@ static func gamepad_resource_to_1700000000_integer(gamepad: S2W_Data_Gamepad1817
 			result |= (1 << 18)
 		elif tl > 0.14:
 			result |= (1 << 17)
-		elif tl > 0.9:
+		elif tl > 0.09:
 			result |= (1 << 16)
 		
 		var tr = gamepad.trigger_right_axis_01_percent
@@ -167,9 +158,8 @@ static func gamepad_resource_to_1700000000_integer(gamepad: S2W_Data_Gamepad1817
 			result |= (1 << 22)
 		elif tr > 0.14:
 			result |= (1 << 21)
-		elif tr > 0.9:
+		elif tr > 0.09:
 			result |= (1 << 20)
-
 
 		# Decode trigger values from bits
 		# Left trigger: bits 16-19
@@ -197,6 +187,17 @@ static func gamepad_resource_to_1700000000_integer(gamepad: S2W_Data_Gamepad1817
 
 
 
+static func as_binary_string(value:int)->String:
+	var text :String=""
+	for i in range(24):
+		if is_integer_bit_right_to_left_true(value, i):
+			text = "1"+text 
+		else : 
+			text = "0"+text 
+	return text
+	
+
+
 # turn a gamepad resource state in two integer to send on the network. Compressed version to uncompress on the other side
 ### NOT TESTED YET ###
 static func gamepad_resource_to_double_integer(gamepad : S2W_Data_Gamepad1817)-> Array[int]:
@@ -207,7 +208,7 @@ static func gamepad_resource_to_double_integer(gamepad : S2W_Data_Gamepad1817)->
 		gamepad.joystick_right_vertical_axis_n1_p1_percent
 	)
 	var int_17: int = gamepad_resource_to_1700000000_integer(gamepad)
-	return [int_18, int_17]
+	return [int_17, int_18]
 
 
 
@@ -224,22 +225,22 @@ static func apply_int18_to_game_resource(value_1800000000: int, gamepad: S2W_Dat
 static func apply_int17_to_game_resource(value_1700000000:int , gamepad : S2W_Data_Gamepad1817 ):
 	if value_1700000000 >= 1700000000 and value_1700000000 < 1800000000:
 		value_1700000000 -= 1700000000
-		gamepad.button_y_up = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 0)
-		gamepad.button_b_right = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 1)
-		gamepad.button_a_down = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 2)
-		gamepad.button_x_left = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 3)
-		gamepad.arrow_up = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 4)
-		gamepad.arrow_right = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 5)
-		gamepad.arrow_down = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 6)
-		gamepad.arrow_left = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 7)
-		gamepad.side_button_left = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 8)
-		gamepad.side_button_right = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 9)
-		gamepad.stick_joystick_left = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 10)
-		gamepad.stick_joystick_right = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 11)
-		gamepad.menu_left = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 12)
-		gamepad.menu_center = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 13)
-		gamepad.menu_right = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 14)
-		gamepad.kill_switch_is_connected = is_integer_bit_right_to_left_true_using_binary_tag(value_1700000000, 15)
+		gamepad.button_y_up = is_integer_bit_right_to_left_true(value_1700000000, 0)
+		gamepad.button_b_right = is_integer_bit_right_to_left_true(value_1700000000, 1)
+		gamepad.button_a_down = is_integer_bit_right_to_left_true(value_1700000000, 2)
+		gamepad.button_x_left = is_integer_bit_right_to_left_true(value_1700000000, 3)
+		gamepad.arrow_up = is_integer_bit_right_to_left_true(value_1700000000, 4)
+		gamepad.arrow_right = is_integer_bit_right_to_left_true(value_1700000000, 5)
+		gamepad.arrow_down = is_integer_bit_right_to_left_true(value_1700000000, 6)
+		gamepad.arrow_left = is_integer_bit_right_to_left_true(value_1700000000, 7)
+		gamepad.side_button_left = is_integer_bit_right_to_left_true(value_1700000000, 8)
+		gamepad.side_button_right = is_integer_bit_right_to_left_true(value_1700000000, 9)
+		gamepad.stick_joystick_left = is_integer_bit_right_to_left_true(value_1700000000, 10)
+		gamepad.stick_joystick_right = is_integer_bit_right_to_left_true(value_1700000000, 11)
+		gamepad.menu_left = is_integer_bit_right_to_left_true(value_1700000000, 12)
+		gamepad.menu_center = is_integer_bit_right_to_left_true(value_1700000000, 13)
+		gamepad.menu_right = is_integer_bit_right_to_left_true(value_1700000000, 14)
+		gamepad.kill_switch_or_is_connected = is_integer_bit_right_to_left_true(value_1700000000, 15)
 
 		# Decode trigger values from bits
 		var trigger_left = 0.0

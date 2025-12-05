@@ -30,19 +30,8 @@ extends Resource
 
 @export var trigger_left_axis_01_percent:float
 @export var trigger_right_axis_01_percent:float
+@export var kill_switch_or_is_connected:bool
 
-
-@export_group("Raw State")
-@export var int_1800000000:int
-@export var int_1700000000:int
-@export var int_1800000000_bytes_little_endian:PackedByteArray
-@export var int_1700000000_bytes_little_endian:PackedByteArray
-@export var binary_1800000000:String
-@export var binary_1700000000:String
-
-
-func update_raw_state_from_primitive():
-		return 
 
 		
 	

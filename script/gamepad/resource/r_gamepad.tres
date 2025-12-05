@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="S2W_Data_Gamepad1817" load_steps=2 format=3 uid="uid://bqannx6y66aq8"]
+
+[ext_resource type="Script" uid="uid://byq2v4404bls7" path="res://addons/2025_12_04_gdp_s2w_int_utility/script/gamepad/s2w_data_gamepad_18_17.gd" id="1_ff8pt"]
+
+[resource]
+script = ExtResource("1_ff8pt")
+button_y_up = true
+button_b_right = true
+button_a_down = true
+button_x_left = true
+arrow_up = true
+arrow_right = true
+arrow_left = true
+side_button_left = true
+side_button_right = true
+stick_joystick_left = true
+stick_joystick_right = true
+menu_left = true
+menu_center = true
+trigger_left_axis_01_percent = 1.0
+metadata/_custom_type_script = "uid://byq2v4404bls7"
