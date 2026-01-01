@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cprip5k3nlody"]
+
+[ext_resource type="Script" uid="uid://7a64jwtfabjq" path="res://addons/2025_12_04_gdp_s2w_int_utility/script/keyboard/s2w_node_keyboard.gd" id="1_3fvgk"]
+
+[node name="S2wKeyboardPusher" type="Node"]
+script = ExtResource("1_3fvgk")
