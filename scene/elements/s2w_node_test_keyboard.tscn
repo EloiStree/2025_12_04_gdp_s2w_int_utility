@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxbvo30nti1q3"]
+
+[ext_resource type="Script" uid="uid://bshf0gc87qw4y" path="res://addons/2025_12_04_gdp_s2w_int_utility/script/keyboard/s2w_test_group_keyboard.gd" id="1_px7li"]
+
+[node name="S2wNodeTestKeyboard" type="Node"]
+script = ExtResource("1_px7li")

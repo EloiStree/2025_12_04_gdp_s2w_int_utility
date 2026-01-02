@@ -4,18 +4,26 @@
 
 [resource]
 script = ExtResource("1_ff8pt")
-button_y_up = true
+button_y_up = false
 button_b_right = true
-button_a_down = true
-button_x_left = true
+button_a_down = false
+button_x_left = false
 arrow_up = true
 arrow_right = true
+arrow_down = false
 arrow_left = true
 side_button_left = true
 side_button_right = true
 stick_joystick_left = true
 stick_joystick_right = true
 menu_left = true
-menu_center = true
+menu_right = false
+menu_center = false
+joystick_left_horizontal_axis_n1_p1_percent = 1.0
+joystick_left_vertical_axis_n1_p1_percent = 0.0
+joystick_right_horizontal_axis_n1_p1_percent = 0.0
+joystick_right_vertical_axis_n1_p1_percent = 0.0
 trigger_left_axis_01_percent = 1.0
+trigger_right_axis_01_percent = 0.0
+kill_switch_or_is_connected = false
 metadata/_custom_type_script = "uid://byq2v4404bls7"
