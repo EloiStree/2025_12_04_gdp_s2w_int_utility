@@ -21,28 +21,28 @@ from the Arduino binary part
 class IntAndBinaryUtility{
 
   public:
-    static constexpr  int binary_tag= 1700000000 ;// 01100101010100111111000100000000
-    
-    static float turn_from_1_to_99_as_percent(int value){
+	static constexpr  int binary_tag= 1700000000 ;// 01100101010100111111000100000000
+	
+	static float turn_from_1_to_99_as_percent(int value){
 
-      if(value == 0) return 0.0;
-      // Turn 1 to 99 to -1.0 to 1.0
-      return float((double(value) - 50.0) / 49.0);
-    }
+	  if(value == 0) return 0.0;
+	  // Turn 1 to 99 to -1.0 to 1.0
+	  return float((double(value) - 50.0) / 49.0);
+	}
 
-        
+		
 
-    static bool is_integer_bit_right_to_left_true_using_binary_tag(int value, int index){
-      //01100101010100111111000100000000
-      bool in_binary_tag= (binary_tag & (1 << index)) ? true: false;
-      bool in_value = (value & (1 << index)) ? true: false;
+	static bool is_integer_bit_right_to_left_true_using_binary_tag(int value, int index){
+	  //01100101010100111111000100000000
+	  bool in_binary_tag= (binary_tag & (1 << index)) ? true: false;
+	  bool in_value = (value & (1 << index)) ? true: false;
 
-      if(in_binary_tag) return !in_value;
-      return in_value;
-    }
+	  if(in_binary_tag) return !in_value;
+	  return in_value;
+	}
 
-    static bool is_integer_bit_right_to_left_true(int value, int index){
-      //Don't forget to remove the tag (like 1700000000)
+	static bool is_integer_bit_right_to_left_true(int value, int index){
+	  //Don't forget to remove the tag (like 1700000000)
       return (value & (1 << index)) ? true: false;
     }
 
@@ -51,9 +51,9 @@ class IntAndBinaryUtility{
             return; // Ensure buffer is large enough for 32 bits
         }
         for (int i = 0; i < 32; i++) {
-            buffer[31 - i] = (value & (1 << i)) ? '1' : '0';
+			buffer[31 - i] = (value & (1 << i)) ? '1' : '0';
         }
-        buffer[32] = '\0'; // Null-terminate the string
+		buffer[32] = '\0'; // Null-terminate the string
     }
 
     static void int_to_binary_buffer_less(int value, int less_value, char* buffer, size_t buffer_size) {
@@ -62,9 +62,9 @@ class IntAndBinaryUtility{
         }
         for (int i = 0; i < 32; i++) {
             bool inverse = (binary_tag & (1 << i));
-            buffer[31 - i] = (value & (1 << i)) ? (inverse ? '0' : '1') : (inverse ? '1' : '0');
+			buffer[31 - i] = (value & (1 << i)) ? (inverse ? '0' : '1') : (inverse ? '1' : '0');
         }
-        buffer[32] = '\0'; // Null-terminate the string
+		buffer[32] = '\0'; // Null-terminate the string
     }
 };
 
