@@ -38,3 +38,7 @@ class WhenToExecuteIntAction:
 	func _init(action_in_integer: int, execute_at_milliseconds: int) -> void:
 		action_to_execute = action_in_integer
 		when_to_execute_in_milliseconds = execute_at_milliseconds
+
+
+func _on_s_2w_gamepad_with_delayer_on_integer_action_to_delay_in_milliseconds(value: int, milliseconds_to_delay: int) -> void:
+	pass # Replace with function body.
